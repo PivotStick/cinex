@@ -1,4 +1,6 @@
 <script>
+	import { base } from '$app/paths';
+
 	import { page } from '$app/stores';
 
 	const links = {
@@ -12,7 +14,7 @@
 
 <nav>
 	{#each Object.keys(links) as href}
-		<a class:current={$page.url.pathname === href} {href}>{links[href]}</a>
+		<a class:current={$page.url.pathname === href} href={`${base}${href}`}>{links[href]}</a>
 	{/each}
 </nav>
 
