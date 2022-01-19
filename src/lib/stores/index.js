@@ -1,3 +1,4 @@
+import { browser } from '$app/env';
 import { writable } from 'svelte/store';
 
 /**
@@ -89,6 +90,7 @@ export const init = {
  * @returns {import("svelte/store").Writable<typeof init>}
  */
 const makeDatas = () => {
+	if (!browser) return;
 	const store = writable(JSON.parse(localStorage.getItem(key)) || init);
 
 	store.subscribe((v) => localStorage.setItem(key, JSON.stringify(v)));
