@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
-const { NODE_ENV, APP_NAME } = process.env;
+const { NODE_ENV } = process.env;
 
 const PROD = NODE_ENV === 'production';
 
@@ -12,7 +12,7 @@ const config = {
 	kit: {
 		ssr: false,
 		paths: {
-			base: PROD ? `/${APP_NAME}` : ''
+			base: PROD ? '/cinex' : ''
 		},
 		vite: {
 			envPrefix: 'APP_'
