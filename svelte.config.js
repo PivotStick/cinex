@@ -1,7 +1,7 @@
 import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 
-const { PROD, APP_NAME } = import.meta.env;
+const { PROD, APP_NAME } = process.env;
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
