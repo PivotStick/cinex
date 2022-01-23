@@ -19,7 +19,9 @@ const config = {
 		vite: {
 			envPrefix: 'APP_'
 		},
-		adapter: adapter(),
+		adapter: adapter({
+			fallback: '200.html'
+		}),
 		target: 'body'
 	}
 };
