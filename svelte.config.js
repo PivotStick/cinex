@@ -20,7 +20,7 @@ const config = {
 			envPrefix: 'APP_'
 		},
 		adapter: adapter({
-			fallback: '200.html'
+			fallback: 'index.html'
 		}),
 		target: 'body'
 	}
