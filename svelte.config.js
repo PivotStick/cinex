@@ -11,8 +11,7 @@ const config = {
 		vite: {
 			envPrefix: 'APP_'
 		},
-		adapter: adapter(),
-		target: 'body'
+		adapter: adapter()
 	}
 };
 
