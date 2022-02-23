@@ -20,7 +20,7 @@
 <Main
 	--rows="1fr auto"
 	on:submit={() => {
-		led.films = [...led.films, value];
+		$datas.leds[$page.params.index].films = [...led.films, value];
 
 		query = '';
 		input.focus();
@@ -35,9 +35,11 @@
 				/>
 				<button
 					on:click={() => {
-						led.films = led.films.filter((_, index) => index !== i);
-					}}><Icon name="trash" /></button
+						$datas.leds[$page.params.index].films = led.films.filter((_, index) => index !== i);
+					}}
 				>
+					<Icon name="trash" />
+				</button>
 			</li>
 		{/each}
 	</ul>
