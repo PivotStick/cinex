@@ -1,11 +1,9 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 
 	import Icon from '$lib/components/Icon.svelte';
-	import Search from '$lib/components/Search.svelte';
 	import { datas } from '$lib/stores';
-
-	let value;
 </script>
 
 <svelte:head>
@@ -31,7 +29,7 @@
 				</label>
 				<button
 					on:click={() => {
-						goto(`/leds/${i}`);
+						goto(`${base}/leds/${i}`);
 					}}
 				>
 					<Icon name="eye" />

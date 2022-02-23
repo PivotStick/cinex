@@ -4,6 +4,7 @@
 	import { Momento } from '$lib/utils/Momento';
 	import Icon from '$lib/components/Icon.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import { base } from '$app/paths';
 
 	const dimensions = ['2D', '3D'];
 </script>
@@ -33,7 +34,7 @@
 					>
 						<Icon name="trash" />
 					</button>
-					<a href="/movieAds/{movieAd._id}">
+					<a href="{base}/movieAds/{movieAd._id}">
 						<button>
 							<Icon name="eye" />
 						</button>
