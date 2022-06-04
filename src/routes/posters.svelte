@@ -5,6 +5,7 @@
 	import Main from '$lib/components/Main.svelte';
 	import Search from '$lib/components/Search.svelte';
 	import { datas } from '$lib/stores';
+	import { v4 } from 'uuid';
 
 	const locations = ['int hall', 'int coul'];
 	const formats = ['120x160', 'plv classique', 'plv speciale'];
@@ -60,6 +61,14 @@
 			bind:input
 			bind:query
 			bind:value={poster.titleId}
+			on:notfound={() => {
+				$datas.titles.unshift({
+					_id: v4(),
+					name: query,
+					type: 'pub'
+				});
+				$datas.titles = $datas.titles;
+			}}
 			options={$datas.titles.map((title) => ({
 				value: title._id,
 				label: title.name

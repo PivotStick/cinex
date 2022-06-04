@@ -74,7 +74,7 @@
 
 				case 'Enter':
 				case 'Tab':
-					if (!filtered[index]) dispatch('unfound');
+					if (!filtered[index]) dispatch('notfound');
 					else select(index);
 					break;
 			}

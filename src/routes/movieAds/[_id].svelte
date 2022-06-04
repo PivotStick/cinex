@@ -7,6 +7,7 @@
 	import Icon from '$lib/components/Icon.svelte';
 	import Main from '$lib/components/Main.svelte';
 	import Search from '$lib/components/Search.svelte';
+	import { v4 } from 'uuid';
 
 	$: i = $datas.movieAds.findIndex((m) => m._id === $page.params._id);
 	$: ads = $datas.movieAds[i].ads;
@@ -156,6 +157,14 @@
 			bind:input
 			bind:query
 			bind:focused
+			on:notfound={() => {
+				$datas.titles.unshift({
+					_id: v4(),
+					name: query,
+					type: 'pub'
+				});
+				$datas.titles = $datas.titles;
+			}}
 			bind:value={title}
 			placeholder="Nom"
 			options={$datas.titles.map((m) => ({
