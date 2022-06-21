@@ -1,24 +1,24 @@
-import { Momento } from './Momento';
-import { Sheet } from './Sheet';
+import { Momento } from "./Momento";
+import { Sheet } from "./Sheet";
 
 export class MovieAds extends Sheet {
 	constructor() {
-		super('FA');
+		super("FA");
 		this.rows.push([
-			'N°SEMAINE',
-			'CODE ENQ.',
-			'VILLE',
-			'CIRCUIT',
-			'COMPLEXE',
-			'N° DE SALLE',
-			'SEANCE/FILM',
-			'2D/3D',
-			'AVANT SEANCE',
-			'CONTENU',
-			'ORDRE',
-			'DUREE AVANT SEANCE',
-			'DATE',
-			'HORAIRE'
+			"N°SEMAINE",
+			"CODE ENQ.",
+			"VILLE",
+			"CIRCUIT",
+			"COMPLEXE",
+			"N° DE SALLE",
+			"SEANCE/FILM",
+			"2D/3D",
+			"AVANT SEANCE",
+			"CONTENU",
+			"ORDRE",
+			"DUREE AVANT SEANCE",
+			"DATE",
+			"HORAIRE"
 		]);
 	}
 
@@ -35,7 +35,8 @@ export class MovieAds extends Sheet {
 						{ name: title.group.start, type: title.type },
 						...c.group.ads.map((titleId) => {
 							const { ...t } = $datas.titles.find((t) => t._id === titleId);
-							if (t.type !== title.group.suffix) t.type += ` ${title.group.suffix}`;
+							if (t.type.toUpperCase() !== title.group.suffix.toUpperCase())
+								t.type += ` ${title.group.suffix}`;
 
 							t.type = t.type;
 
@@ -49,14 +50,14 @@ export class MovieAds extends Sheet {
 			}, []);
 
 			const duration = Momento.diffMinutes(session.start, session.end);
-			const formatter = new Intl.DateTimeFormat('fr-FR', {
-				year: 'numeric',
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit'
+			const formatter = new Intl.DateTimeFormat("fr-FR", {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+				hour: "2-digit",
+				minute: "2-digit"
 			});
-			const [start, time] = formatter.format(new Date(session.start)).split(', ');
+			const [start, time] = formatter.format(new Date(session.start)).split(", ");
 
 			return flatten.map((ad, i) =>
 				[

@@ -4,7 +4,7 @@
  */
 export const intoView = (node, condition) => {
 	const update = (c) => {
-		if (c) node.scrollIntoView({ block: 'center', behavior: 'smooth' });
+		if (c) node.scrollIntoView({ block: "center", behavior: "smooth" });
 	};
 
 	update(condition);

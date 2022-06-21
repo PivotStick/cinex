@@ -1,45 +1,54 @@
 <script>
-	import { datas } from '$lib/stores';
-	import { v4 } from 'uuid';
-	import XLSX from 'xlsx';
+	import { datas } from "$lib/stores";
+	import { v4 } from "uuid";
+	import { read, utils } from "xlsx-js-style";
 
-	let files;
+	const KEY = "TITRE FRANCAIS";
 
-	const reader = new FileReader();
-	reader.onloadend = () => {
-		if (files[0].type === 'application/json') {
+	/**
+	 * @param {File} file
+	 */
+	const load = async (file) => {
+		const buffer = await file.arrayBuffer();
+		if (file.type === "application/json") {
 			// @ts-ignore
-			$datas = JSON.parse(reader.result);
+			console.log(buffer);
+			// $datas = JSON.parse(reader.result);
 			return;
 		}
 
-		const result = XLSX.read(reader.result, {
-			type: 'binary'
+		const book = read(buffer);
+
+		const name = book.SheetNames[0];
+		const json = utils.sheet_to_json(book.Sheets[name]);
+
+		json.forEach((row) => {
+			if (!row[KEY]) return;
+			const name = String(row[KEY]).toUpperCase().trim();
+			if ($datas.titles.find((t) => t.name.toUpperCase().trim() === name)) return;
+
+			$datas.titles.push({
+				_id: v4(),
+				name,
+				type: "pub"
+			});
 		});
 
-		const name = result.SheetNames[0];
-		const sheet = result.Sheets[name];
-		const titles = Object.keys(sheet).reduce((a, key) => {
-			if (!key.startsWith('A')) return a;
-			a.push(sheet[key].v);
-			return a;
-		}, []);
-
-		$datas.titles = titles
-			.slice(1)
-			.map((name) => ({ _id: v4(), name: name.toString(), type: 'pub' }));
+		$datas.titles = $datas.titles;
 	};
-
-	$: {
-		if (files?.[0]) {
-			reader.readAsBinaryString(files[0]);
-		}
-	}
 </script>
 
 <label>
-	<p>Charger un Dico</p>
-	<input type="file" bind:files />
+	<p>Charger un Dico <b>(ça va chercher la colonne <i>"{KEY}"</i>)</b></p>
+	<button on:click={datas.reset}>❌ Tout supprimer ❌</button>
+	<input
+		type="file"
+		on:change={async (e) => {
+			const i = e.currentTarget;
+			await load(i.files.item(0));
+			i.value = null;
+		}}
+	/>
 </label>
 
 <style>

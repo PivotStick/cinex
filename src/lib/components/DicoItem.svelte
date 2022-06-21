@@ -1,7 +1,7 @@
 <script>
-	import { expoOut } from 'svelte/easing';
-	import { scale } from 'svelte/transition';
-	import { datas } from '$lib/stores';
+	import { expoOut } from "svelte/easing";
+	import { scale } from "svelte/transition";
+	import { datas } from "$lib/stores";
 
 	/**
 	 * @type {import("$lib/stores").Title}
@@ -23,11 +23,11 @@
 			}
 		};
 
-		addEventListener('mousedown', down);
+		addEventListener("mousedown", down);
 
 		return {
 			destroy() {
-				removeEventListener('mousedown', down);
+				removeEventListener("mousedown", down);
 			}
 		};
 	};

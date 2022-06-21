@@ -4,7 +4,7 @@ export class Momento {
 	 * @param {string} time
 	 */
 	static diffMinutes(date1, time) {
-		const [hours, minutes] = time.split(':').map(Number);
+		const [hours, minutes] = time.split(":").map(Number);
 		date1 = new Date(date1);
 		const date2 = new Date(date1);
 

@@ -1,7 +1,7 @@
-import adapter from '@sveltejs/adapter-netlify';
-import preprocess from 'svelte-preprocess';
+import adapter from "@sveltejs/adapter-netlify";
+import preprocess from "svelte-preprocess";
 
-process.env.APP_NAME = 'Cinex';
+process.env.APP_NAME = "Cinex";
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -9,7 +9,7 @@ const config = {
 
 	kit: {
 		vite: {
-			envPrefix: 'APP_'
+			envPrefix: "APP_"
 		},
 		adapter: adapter()
 	}

@@ -1,17 +1,17 @@
-import { Sheet } from './Sheet';
+import { Sheet } from "./Sheet";
 
 export class Posters extends Sheet {
 	constructor() {
-		super('AFFICHES');
+		super("AFFICHES");
 		this.rows.push([
-			'SEMAINE',
-			'CODE ENQ.',
-			'VILLE',
-			'CIRCUIT',
-			'COMPLEXE',
-			'AFFICHE FILM',
-			'POSITIONNEMENT',
-			'FORMAT'
+			"SEMAINE",
+			"CODE ENQ.",
+			"VILLE",
+			"CIRCUIT",
+			"COMPLEXE",
+			"AFFICHE FILM",
+			"POSITIONNEMENT",
+			"FORMAT"
 		]);
 	}
 

@@ -1,18 +1,18 @@
 <script>
-	import { v4 } from 'uuid';
-	import { datas } from '$lib/stores';
-	import { Regex } from '$lib/utils/Regex';
+	import { v4 } from "uuid";
+	import { datas } from "$lib/stores";
+	import { Regex } from "$lib/utils/Regex";
 
-	import DicoItem from '$lib/components/DicoItem.svelte';
-	import Dico from '$lib/components/Dico.svelte';
+	import DicoItem from "$lib/components/DicoItem.svelte";
+	import Dico from "$lib/components/Dico.svelte";
 
 	/**
 	 * @type {HTMLInputElement}
 	 */
 	let input;
 	let body = {
-		name: '',
-		type: 'pub'
+		name: "",
+		type: "pub"
 	};
 
 	const add = () => {
@@ -24,11 +24,11 @@
 			...$datas.titles
 		];
 
-		body.name = '';
+		body.name = "";
 		input.focus();
 	};
 
-	$: regex = new RegExp(Regex.escape(body.name), 'gi');
+	$: regex = new RegExp(Regex.escape(body.name), "gi");
 	$: sliced = $datas.titles.slice(0, 50);
 </script>
 

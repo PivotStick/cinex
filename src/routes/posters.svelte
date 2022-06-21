@@ -1,14 +1,14 @@
 <script>
-	import { intoView } from '$lib/actions/intoView';
+	import { intoView } from "$lib/actions/intoView";
 
-	import Icon from '$lib/components/Icon.svelte';
-	import Main from '$lib/components/Main.svelte';
-	import Search from '$lib/components/Search.svelte';
-	import { datas } from '$lib/stores';
-	import { v4 } from 'uuid';
+	import Icon from "$lib/components/Icon.svelte";
+	import Main from "$lib/components/Main.svelte";
+	import Search from "$lib/components/Search.svelte";
+	import { datas } from "$lib/stores";
+	import { v4 } from "uuid";
 
-	const locations = ['int hall', 'int coul'];
-	const formats = ['120x160', 'plv classique', 'plv speciale'];
+	const locations = ["int hall", "int coul"];
+	const formats = ["120x160", "plv classique", "plv speciale"];
 
 	let poster = {
 		titleId: undefined,
@@ -17,7 +17,7 @@
 	};
 
 	let focused = false;
-	let query = '';
+	let query = "";
 	/**
 	 * @type {HTMLInputElement}
 	 */
@@ -32,7 +32,7 @@
 	--rows="auto 1fr auto"
 	on:submit={() => {
 		$datas.posters = [...$datas.posters, { ...poster }];
-		query = '';
+		query = "";
 		input.focus();
 	}}
 >
@@ -65,7 +65,7 @@
 				$datas.titles.unshift({
 					_id: v4(),
 					name: query,
-					type: 'pub'
+					type: "pub"
 				});
 				$datas.titles = $datas.titles;
 			}}

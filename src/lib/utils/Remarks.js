@@ -1,7 +1,7 @@
-import { Sheet } from './Sheet';
+import { Sheet } from "./Sheet";
 
 export class Remarks extends Sheet {
 	constructor() {
-		super('REMARQUES');
+		super("REMARQUES");
 	}
 }

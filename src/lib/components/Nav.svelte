@@ -1,14 +1,14 @@
 <script>
-	import { base } from '$app/paths';
+	import { base } from "$app/paths";
 
-	import { page } from '$app/stores';
+	import { page } from "$app/stores";
 
 	const links = {
-		'/dico': 'Dico',
-		'/posters': 'Affiches',
-		'/movieAds': 'Films Annonces',
-		'/leds': 'LEDs',
-		'/settings': 'Paramètres'
+		"/dico": "Dico",
+		"/posters": "Affiches",
+		"/movieAds": "Films Annonces",
+		"/leds": "LEDs",
+		"/settings": "Paramètres"
 	};
 </script>
 

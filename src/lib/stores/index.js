@@ -1,5 +1,5 @@
-import { browser } from '$app/env';
-import { writable } from 'svelte/store';
+import { browser } from "$app/env";
+import { writable } from "svelte/store";
 
 /**
  * @typedef {{
@@ -23,6 +23,7 @@ import { writable } from 'svelte/store';
  * 	end: string;
  * 	dimension: string;
  * 	room: number;
+ * 	done: boolean;
  * 	ads: Ad[]
  * }} MovieAd
  *
@@ -38,20 +39,20 @@ import { writable } from 'svelte/store';
  * }} Title
  */
 
-const key = '__STORE_KEY__';
-export const init = {
+const key = "__STORE_KEY__";
+const __init = {
 	week: 1,
 	code: 70,
-	city: 'MONTPELLIER',
-	circuit: 'CGR',
-	name: 'MEGA CGR LATTES',
+	city: "MONTPELLIER",
+	circuit: "CGR",
+	name: "MEGA CGR LATTES",
 
 	titles: /** @type {Title[]} */ ([]),
 	posters: /** @type {Poster[]} */ ([]),
 	movieAds: /** @type {MovieAd[]} */ ([]),
 	leds: [
 		{
-			title: 'panneaux LEDs isolés',
+			title: "panneaux LEDs isolés",
 			subTitle: "Liste des films présents dans la rotation d'affiches fixes:",
 			films: [],
 			hall: 6,
@@ -59,24 +60,24 @@ export const init = {
 			outdoors: 0
 		},
 		{
-			title: 'blocs 1 de 3 panneaux',
-			subTitle: 'Liste des films présents sur un des 3 panneaux du bloc (5 maximum):',
+			title: "blocs 1 de 3 panneaux",
+			subTitle: "Liste des films présents sur un des 3 panneaux du bloc (5 maximum):",
 			films: [],
 			hall: 2,
 			hallways: 0,
 			outdoors: 0
 		},
 		{
-			title: 'blocs 2 de 3 panneaux',
-			subTitle: 'Liste des films présents sur un des 3 panneaux du bloc (5 maximum):',
+			title: "blocs 2 de 3 panneaux",
+			subTitle: "Liste des films présents sur un des 3 panneaux du bloc (5 maximum):",
 			films: [],
 			hall: 2,
 			hallways: 0,
 			outdoors: 0
 		},
 		{
-			title: 'blocs 3 de 3 panneaux',
-			subTitle: 'Liste des films présents sur un des 3 panneaux du bloc (5 maximum):',
+			title: "blocs 3 de 3 panneaux",
+			subTitle: "Liste des films présents sur un des 3 panneaux du bloc (5 maximum):",
 			films: [],
 			hall: 0,
 			hallways: 0,
@@ -84,18 +85,23 @@ export const init = {
 		}
 	]
 };
+export const init = JSON.stringify(__init);
 
-/**
- *
- * @returns {import("svelte/store").Writable<typeof init>}
- */
 const makeDatas = () => {
 	if (!browser) return;
-	const store = writable(JSON.parse(localStorage.getItem(key)) || init);
+	/**
+	 * @type {import("svelte/store").Writable<typeof __init>}
+	 */
+	const store = writable(JSON.parse(localStorage.getItem(key) || init));
 
 	store.subscribe((v) => localStorage.setItem(key, JSON.stringify(v)));
 
-	return store;
+	return {
+		...store,
+		reset: () => {
+			store.set(JSON.parse(init));
+		}
+	};
 };
 
 export const datas = makeDatas();

@@ -1,9 +1,9 @@
 <script>
-	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
+	import { goto } from "$app/navigation";
+	import { base } from "$app/paths";
 
-	import Icon from '$lib/components/Icon.svelte';
-	import { datas } from '$lib/stores';
+	import Icon from "$lib/components/Icon.svelte";
+	import { datas } from "$lib/stores";
 </script>
 
 <svelte:head>

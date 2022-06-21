@@ -1,10 +1,10 @@
 <script>
-	import { datas } from '$lib/stores';
-	import { LED } from '$lib/utils/LED';
-	import { MovieAds } from '$lib/utils/MovieAds';
-	import { Posters } from '$lib/utils/Posters';
-	import { Remarks } from '$lib/utils/Remarks';
-	import { ResultMaker } from '$lib/utils/ResultMaker';
+	import { datas } from "$lib/stores";
+	import { LED } from "$lib/utils/LED";
+	import { MovieAds } from "$lib/utils/MovieAds";
+	import { Posters } from "$lib/utils/Posters";
+	import { Remarks } from "$lib/utils/Remarks";
+	import { ResultMaker } from "$lib/utils/ResultMaker";
 
 	const generateAndDownload = () => {
 		const result = new ResultMaker(`${$datas.name} SEMAINE ${$datas.week}`, $datas);

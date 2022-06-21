@@ -1,13 +1,14 @@
 <script>
-	import { slide } from 'svelte/transition';
-	import { page } from '$app/stores';
-	import { datas } from '$lib/stores';
-	import { intoView } from '$lib/actions/intoView';
+	import { slide } from "svelte/transition";
+	import { page } from "$app/stores";
+	import { datas } from "$lib/stores";
+	import { intoView } from "$lib/actions/intoView";
 
-	import Icon from '$lib/components/Icon.svelte';
-	import Main from '$lib/components/Main.svelte';
-	import Search from '$lib/components/Search.svelte';
-	import { v4 } from 'uuid';
+	import Icon from "$lib/components/Icon.svelte";
+	import Main from "$lib/components/Main.svelte";
+	import Search from "$lib/components/Search.svelte";
+	import { v4 } from "uuid";
+	import { goto } from "$app/navigation";
 
 	$: i = $datas.movieAds.findIndex((m) => m._id === $page.params._id);
 	$: ads = $datas.movieAds[i].ads;
@@ -17,7 +18,7 @@
 	 */
 	let input;
 	let focused = false;
-	let query = '';
+	let query = "";
 	/**
 	 * @type {import('$lib/stores').Title}
 	 */
@@ -46,30 +47,32 @@
 			});
 		}
 		$datas.movieAds[i].ads = $datas.movieAds[i].ads;
-		query = '';
+		query = "";
 		title = undefined;
 		input.focus();
 	}}
 >
-	<h1 in:slide>{$datas.movieAds[i].film}</h1>
+	<h1 in:slide>
+		{$datas.movieAds[i].film}
+		<button
+			on:click={() => {
+				$datas.movieAds[i].done = true;
+				goto("/movieAds");
+			}}>Finir</button
+		>
+	</h1>
 
 	<ul class:focused>
 		{#each ads as ad, index}
 			{#if ad.group}
+				{@const adTitleIndex = $datas.titles.findIndex((t) => t._id === ad.titleId)}
 				<li class="group" use:intoView={index === ads.length - 1 && !ad.group.ads.length}>
+					<input type="text" bind:value={$datas.titles[adTitleIndex].group.start} />
+					<input type="text" bind:value={$datas.titles[adTitleIndex].type} />
 					<input
 						type="text"
-						bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].group
-							.start}
-					/>
-					<input
-						type="text"
-						bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].type}
-					/>
-					<input
-						type="text"
-						bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].group
-							.suffix}
+						style="opacity: 0;"
+						bind:value={$datas.titles[adTitleIndex].group.suffix}
 					/>
 					<button
 						on:click={() => {
@@ -80,22 +83,22 @@
 					</button>
 				</li>
 				{#each ad.group.ads as titleId, _index}
+					{@const titleIndex = $datas.titles.findIndex((t) => t._id === titleId)}
+					{@const sameType =
+						$datas.titles[titleIndex].type.toUpperCase().trim() ===
+						$datas.titles[adTitleIndex].group.suffix.toUpperCase().trim()}
 					<li
 						class="group"
 						use:intoView={index === ads.length - 1 && _index === ad.group.ads.length - 1}
 					>
+						<input type="text" bind:value={$datas.titles[titleIndex].name} />
+						<input type="text" bind:value={$datas.titles[titleIndex].type} />
 						<input
 							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === titleId)].name}
-						/>
-						<input
-							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === titleId)].type}
-						/>
-						<input
-							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].group
-								.suffix}
+							bind:value={$datas.titles[adTitleIndex].group.suffix}
+							style="opacity: {!sameType ? 1 : 0.25}; text-decoration: {!sameType
+								? 'none'
+								: 'line-through'}"
 						/>
 						<button
 							on:click={() => {
@@ -106,19 +109,12 @@
 				{/each}
 				{#if ad.group.closed}
 					<li class="group" use:intoView={index === ads.length - 1}>
+						<input type="text" bind:value={$datas.titles[adTitleIndex].group.end} />
+						<input type="text" bind:value={$datas.titles[adTitleIndex].type} />
 						<input
 							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].group
-								.end}
-						/>
-						<input
-							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].type}
-						/>
-						<input
-							type="text"
-							bind:value={$datas.titles[$datas.titles.findIndex((t) => t._id === ad.titleId)].group
-								.suffix}
+							style="opacity: 0;"
+							bind:value={$datas.titles[adTitleIndex].group.suffix}
 						/>
 						<button
 							disabled={ads[index + 1]}
@@ -161,7 +157,7 @@
 				$datas.titles.unshift({
 					_id: v4(),
 					name: query,
-					type: 'pub'
+					type: "pub"
 				});
 				$datas.titles = $datas.titles;
 			}}
@@ -192,6 +188,11 @@
 		text-transform: uppercase;
 		font-weight: 900;
 		border-bottom: 1px solid #eee;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.5em;
 	}
 
 	ul {

@@ -1,5 +1,5 @@
 <script>
-	import Nav from '$lib/components/Nav.svelte';
+	import Nav from "$lib/components/Nav.svelte";
 </script>
 
 <svelte:head>
@@ -21,7 +21,7 @@
 	}
 
 	:root {
-		font-family: 'Nunito', sans-serif;
+		font-family: "Nunito", sans-serif;
 	}
 
 	body {

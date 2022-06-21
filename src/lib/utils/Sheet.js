@@ -1,3 +1,5 @@
+import { utils } from "xlsx-js-style";
+
 export class Sheet {
 	rows = [];
 	wchs = [];
@@ -16,10 +18,14 @@ export class Sheet {
 	}
 
 	/**
-	 * @param {import("xlsx").WorkSheet} ws
+	 * @param {import("xlsx-js-style").WorkSheet} ws
 	 */
 	format(ws) {
-		ws['!cols'] = this.wchs.map((wch) => ({ wch }));
+		ws["!cols"] = this.wchs.map((wch) => ({ wch }));
 		return ws;
+	}
+
+	toWorkSheet() {
+		return utils.aoa_to_sheet(this.rows);
 	}
 }

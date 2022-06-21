@@ -1,6 +1,6 @@
 <script>
-	import { Regex } from '$lib/utils/Regex';
-	import { createEventDispatcher } from 'svelte';
+	import { Regex } from "$lib/utils/Regex";
+	import { createEventDispatcher } from "svelte";
 
 	const dispatch = createEventDispatcher();
 
@@ -16,7 +16,7 @@
 	 * @type {HTMLInputElement}
 	 */
 	export let input = undefined;
-	export let query = '';
+	export let query = "";
 	export let value = undefined;
 	export let bottom = false;
 	export let focused = false;
@@ -27,7 +27,7 @@
 	 */
 	const intoView = (node, condition) => {
 		const update = (c) => {
-			if (c) node.scrollIntoView({ block: 'nearest' });
+			if (c) node.scrollIntoView({ block: "nearest" });
 		};
 
 		update(condition);
@@ -44,7 +44,7 @@
 
 	let index = 0;
 
-	$: regex = new RegExp(Regex.escape(query), 'gi');
+	$: regex = new RegExp(Regex.escape(query), "gi");
 	$: filtered = options.filter((option) => option.label.match(regex));
 	$: if (filtered.length === 1) {
 		value = filtered[0].value;
@@ -64,17 +64,17 @@
 		on:blur={() => (focused = false)}
 		on:keydown={(e) => {
 			switch (e.key) {
-				case 'ArrowUp':
+				case "ArrowUp":
 					index--;
 					break;
 
-				case 'ArrowDown':
+				case "ArrowDown":
 					index++;
 					break;
 
-				case 'Enter':
-				case 'Tab':
-					if (!filtered[index]) dispatch('notfound');
+				case "Enter":
+				case "Tab":
+					if (!filtered[index]) dispatch("notfound");
 					else select(index);
 					break;
 			}
