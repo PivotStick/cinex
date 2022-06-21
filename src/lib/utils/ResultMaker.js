@@ -14,7 +14,7 @@ export class ResultMaker {
 	setSheet(sheet) {
 		sheet.build(this.$datas);
 		this.wb.SheetNames.push(sheet.name);
-		this.wb.Sheets[sheet.name] = sheet.format(utils.aoa_to_sheet(sheet.rows));
+		this.wb.Sheets[sheet.name] = sheet.format(sheet.toWorkSheet());
 
 		const border = { style: "thin", color: { auto: 1 } };
 		const r = /^[A-Z]+\d+$/;
@@ -29,11 +29,13 @@ export class ResultMaker {
 				alignment: {
 					vertical: "center"
 				},
+				...(cell.s || {}),
 				border: {
 					top: border,
 					bottom: border,
 					left: border,
-					right: border
+					right: border,
+					...(cell.s?.border || {})
 				}
 			};
 		});

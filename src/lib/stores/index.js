@@ -1,45 +1,6 @@
 import { browser } from "$app/env";
 import { writable } from "svelte/store";
 
-/**
- * @typedef {{
- * 	titleId: string;
- * 	group?: {
- * 		ads: string[];
- * 		closed: boolean;
- *  }
- * }} Ad
- *
- * @typedef {{
- * 	titleId: string;
- * 	location: string;
- * 	type: string;
- * }} Poster
- *
- * @typedef {{
- * 	_id: string;
- * 	film: string;
- * 	start: string;
- * 	end: string;
- * 	dimension: string;
- * 	room: number;
- * 	done: boolean;
- * 	ads: Ad[]
- * }} MovieAd
- *
- * @typedef {{
- * 	_id: string;
- * 	name: string;
- * 	type: string;
- * 	group?: {
- * 	    suffix: string;
- * 		start: string;
- * 		end: string;
- * 	}
- * }} Title
- */
-
-const key = "__STORE_KEY__";
 const __init = {
 	week: 1,
 	code: 70,
@@ -85,7 +46,49 @@ const __init = {
 		}
 	]
 };
-export const init = JSON.stringify(__init);
+
+/**
+ * @typedef {{
+ * 	titleId: string;
+ * 	group?: {
+ * 		ads: string[];
+ * 		closed: boolean;
+ *  }
+ * }} Ad
+ *
+ * @typedef {{
+ * 	titleId: string;
+ * 	location: string;
+ * 	type: string;
+ * }} Poster
+ *
+ * @typedef {{
+ * 	_id: string;
+ * 	film: string;
+ * 	start: string;
+ * 	end: string;
+ * 	dimension: string;
+ * 	room: number;
+ * 	done: boolean;
+ * 	ads: Ad[]
+ * }} MovieAd
+ *
+ * @typedef {{
+ * 	_id: string;
+ * 	name: string;
+ * 	type: string;
+ * 	group?: {
+ * 	    suffix: string;
+ * 		start: string;
+ * 		end: string;
+ * 	}
+ * }} Title
+ *
+ * @typedef {typeof __init} Init
+ */
+
+const key = "__STORE_KEY__";
+const init = JSON.stringify(__init);
 
 const makeDatas = () => {
 	if (!browser) return;
