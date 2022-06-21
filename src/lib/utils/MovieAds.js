@@ -2,23 +2,26 @@ import { Momento } from "./Momento";
 import { Sheet } from "./Sheet";
 
 export class MovieAds extends Sheet {
+	// wchs = [7.5, 6.33, 16, 9, 17.17, 5.5, 34.17, 4.5, 60.33, 8.33, 5.83, 6, 10.33, 8.83];
+
 	constructor() {
 		super("FA");
+		const s = { font: { bold: true }, alignment: { horizontal: "center" } };
 		this.rows.push([
-			"N°SEMAINE",
-			"CODE ENQ.",
-			"VILLE",
-			"CIRCUIT",
-			"COMPLEXE",
-			"N° DE SALLE",
-			"SEANCE/FILM",
-			"2D/3D",
-			"AVANT SEANCE",
-			"CONTENU",
-			"ORDRE",
-			"DUREE AVANT SEANCE",
-			"DATE",
-			"HORAIRE"
+			{ v: "N°SEMAINE", s },
+			{ v: "CODE ENQ.", s },
+			{ v: "VILLE", s },
+			{ v: "CIRCUIT", s },
+			{ v: "COMPLEXE", s },
+			{ v: "N° DE SALLE", s },
+			{ v: "SEANCE/FILM", s },
+			{ v: "2D/3D", s },
+			{ v: "AVANT SEANCE", s },
+			{ v: "CONTENU", s },
+			{ v: "ORDRE", s },
+			{ v: "DUREE AVANT SEANCE", s },
+			{ v: "DATE", s },
+			{ v: "HORAIRE", s }
 		]);
 	}
 
@@ -59,22 +62,23 @@ export class MovieAds extends Sheet {
 			});
 			const [start, time] = formatter.format(new Date(session.start)).split(", ");
 
+			const s = { alignment: { horizontal: "center" } };
 			return flatten.map((ad, i) =>
 				[
-					$datas.week,
-					$datas.code,
-					$datas.city.toUpperCase(),
-					$datas.circuit.toUpperCase(),
-					$datas.name.toUpperCase(),
-					session.room,
+					{ v: $datas.week, s },
+					{ v: $datas.code, s },
+					{ v: $datas.city.toUpperCase(), s },
+					{ v: $datas.circuit.toUpperCase(), s },
+					{ v: $datas.name.toUpperCase(), s },
+					{ v: session.room, s },
 					session.film.toUpperCase(),
-					session.dimension.toUpperCase(),
+					{ v: session.dimension.toUpperCase(), s },
 					ad.name.toUpperCase(),
-					ad.type.toUpperCase(),
-					i + 1,
-					duration,
-					start.toUpperCase(),
-					time.toUpperCase()
+					{ v: ad.type.toUpperCase(), s },
+					{ v: i + 1, s },
+					{ v: duration, s },
+					{ v: start.toUpperCase(), s },
+					{ v: time.toUpperCase().replace(":", "H"), s }
 				].map((v, i) => this.count(v, i))
 			);
 		});

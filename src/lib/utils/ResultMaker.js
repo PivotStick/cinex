@@ -17,18 +17,22 @@ export class ResultMaker {
 
 		const border = { style: "thin", color: { auto: 1 } };
 		const r = /^[A-Z]+\d+$/;
+		const s = this.wb.Sheets[sheet.name];
 
-		Object.keys(this.wb.Sheets[sheet.name]).forEach((ref) => {
+		Object.keys(s).forEach((ref) => {
 			if (!r.test(ref)) return;
-			const cell = this.wb.Sheets[sheet.name][ref];
+			const cell = s[ref];
 			cell.s = {
+				...(cell.s || {}),
 				font: {
-					name: "Arial"
+					name: "Arial",
+					sz: 12,
+					...(cell.s?.font || {})
 				},
 				alignment: {
-					vertical: "center"
+					vertical: "center",
+					...(cell.s?.alignment || {})
 				},
-				...(cell.s || {}),
 				border: {
 					top: border,
 					bottom: border,

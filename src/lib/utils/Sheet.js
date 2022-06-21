@@ -11,8 +11,9 @@ export class Sheet {
 	build($datas) {}
 
 	count(value, index) {
-		const count = `${value}`.length * 1.5;
-		this.wchs[index] = (this.wchs[index] || 0) < count ? count : this.wchs[index];
+		const count = `${value}`.length;
+		const n = this.wchs[index] || 0;
+		this.wchs[index] = n < count ? count : n;
 
 		return value;
 	}
@@ -22,6 +23,7 @@ export class Sheet {
 	 */
 	format(ws) {
 		ws["!cols"] = this.wchs.map((wch) => ({ wch }));
+		ws["!rows"] = this.rows.map((_) => ({ hpx: 30 }));
 		return ws;
 	}
 
