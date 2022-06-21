@@ -40,7 +40,6 @@
 
 <label>
 	<p>Charger un Dico <b>(ça va chercher la colonne <i>"{KEY}"</i>)</b></p>
-	<button on:click={datas.reset}>❌ Tout supprimer ❌</button>
 	<input
 		type="file"
 		on:change={async (e) => {

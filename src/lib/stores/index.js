@@ -1,7 +1,7 @@
 import { browser } from "$app/env";
 import { writable } from "svelte/store";
 
-const __init = {
+export const __init = {
 	week: 1,
 	code: 70,
 	city: "MONTPELLIER",

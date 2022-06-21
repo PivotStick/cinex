@@ -1,5 +1,5 @@
 <script>
-	import { datas } from "$lib/stores";
+	import { datas, __init } from "$lib/stores";
 	import { LED } from "$lib/utils/LED";
 	import { MovieAds } from "$lib/utils/MovieAds";
 	import { Posters } from "$lib/utils/Posters";
@@ -15,6 +15,12 @@
 		result.setSheet(new Remarks());
 
 		result.download();
+	};
+
+	const reset = () => {
+		$datas.posters = __init.posters;
+		$datas.movieAds = __init.movieAds;
+		$datas.leds = __init.leds;
 	};
 </script>
 
@@ -43,13 +49,25 @@
 		Circuit
 		<input type="text" bind:value={$datas.circuit} />
 	</label>
-
-	<button on:click={generateAndDownload}>Télécharger le tableau</button>
+	<div class="buttons">
+		<button on:click={generateAndDownload}>✅ Télécharger le tableau</button>
+		<button on:click={reset}>Vider les <i><b>Affiches / Films Annonces / LEDs</b></i></button>
+		<button on:click={datas.reset}>❌ Tout Réinitialiser ❌</button>
+	</div>
 </main>
 
-<style>
+<style lang="scss">
 	main {
 		display: grid;
 		padding: 4vw;
+	}
+
+	.buttons {
+		display: flex;
+		gap: 0.5em;
+
+		button {
+			flex: 1;
+		}
 	}
 </style>
