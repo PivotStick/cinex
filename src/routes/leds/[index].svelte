@@ -5,6 +5,7 @@
 	import Main from "$lib/components/Main.svelte";
 	import Search from "$lib/components/Search.svelte";
 	import { datas } from "$lib/stores";
+	import { v4 } from "uuid";
 
 	/**
 	 * @type {HTMLInputElement}
@@ -51,6 +52,14 @@
 			bind:value
 			bind:query
 			placeholder="Film"
+			on:notfound={() => {
+				$datas.titles.unshift({
+					_id: v4(),
+					name: query,
+					type: "pub"
+				});
+				$datas.titles = $datas.titles;
+			}}
 			options={$datas.titles.map((t) => ({
 				label: t.name,
 				value: t._id
