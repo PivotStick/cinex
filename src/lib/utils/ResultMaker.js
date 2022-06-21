@@ -14,12 +14,12 @@ export class ResultMaker {
 	setSheet(sheet) {
 		sheet.build(this.$datas);
 		this.wb.SheetNames.push(sheet.name);
-		this.wb.Sheets[sheet.name] = sheet.format(sheet.toWorkSheet());
+		utils.book_append_sheet(this.wb, sheet.format(sheet.toWorkSheet()), sheet.name);
 
 		const border = { style: "thin", color: { auto: 1 } };
 		const r = /^[A-Z]+\d+$/;
 
-		Object.keys(this.wb.Sheets[sheet.name]).forEach((ref) => {
+		this.wb.Props.Object.keys(this.wb.Sheets[sheet.name]).forEach((ref) => {
 			if (!r.test(ref)) return;
 			const cell = this.wb.Sheets[sheet.name][ref];
 			cell.s = {
