@@ -8,7 +8,7 @@
 	import { v4 } from "uuid";
 
 	const locations = ["int hall", "int coul"];
-	const formats = ["120x160", "plv classique", "plv speciale"];
+	const formats = ["120x160", "plv classique", "plv speciale", "operation speciale"];
 
 	let poster = {
 		titleId: undefined,
