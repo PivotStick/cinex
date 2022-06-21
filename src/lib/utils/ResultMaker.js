@@ -18,7 +18,7 @@ export class ResultMaker {
 		const border = { style: "thin", color: { auto: 1 } };
 		const r = /^[A-Z]+\d+$/;
 
-		this.wb.Props.Object.keys(this.wb.Sheets[sheet.name]).forEach((ref) => {
+		Object.keys(this.wb.Sheets[sheet.name]).forEach((ref) => {
 			if (!r.test(ref)) return;
 			const cell = this.wb.Sheets[sheet.name][ref];
 			cell.s = {
