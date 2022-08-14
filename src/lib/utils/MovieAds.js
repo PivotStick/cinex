@@ -30,8 +30,8 @@ export class MovieAds extends Sheet {
 	 * @param {typeof import("$lib/stores").init} $datas
 	 */
 	build($datas) {
-		const movieAds = $datas.movieAds.flatMap((session) => {
-			const flatten = session.ads.reduce((a, c) => {
+		const movieAds = $datas.movieAds.flatMap((movie) => {
+			const flatten = movie.ads.reduce((a, c) => {
 				const title = $datas.titles.find((t) => t._id === c.titleId);
 				if (c.group) {
 					a.push(
@@ -57,7 +57,7 @@ export class MovieAds extends Sheet {
 				return a;
 			}, []);
 
-			const duration = Momento.diffMinutes(session.start, session.end);
+			const duration = Momento.diffMinutes(movie.start, movie.end);
 			const formatter = new Intl.DateTimeFormat("fr-FR", {
 				year: "numeric",
 				month: "2-digit",
@@ -65,7 +65,7 @@ export class MovieAds extends Sheet {
 				hour: "2-digit",
 				minute: "2-digit"
 			});
-			const [start, time] = formatter.format(new Date(session.start)).split(", ");
+			const [start, time] = formatter.format(new Date(movie.start)).split(" ");
 
 			const s = { alignment: { horizontal: "center" } };
 			return flatten.map((ad, i) =>
@@ -75,9 +75,9 @@ export class MovieAds extends Sheet {
 					{ v: $datas.city.toUpperCase(), s },
 					{ v: $datas.circuit.toUpperCase(), s },
 					{ v: $datas.name.toUpperCase(), s },
-					{ v: session.room, s },
-					session.film.toUpperCase(),
-					{ v: session.dimension.toUpperCase(), s },
+					{ v: movie.room, s },
+					movie.film.toUpperCase(),
+					{ v: movie.dimension.toUpperCase(), s },
 					ad.name.toUpperCase(),
 					{ v: ad.type.toUpperCase(), s },
 					{ v: i + 1, s },
