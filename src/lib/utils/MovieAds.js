@@ -37,7 +37,12 @@ export class MovieAds extends Sheet {
 					a.push(
 						{ name: title.group.start, type: title.type },
 						...c.group.ads.map((titleId) => {
-							const { ...t } = $datas.titles.find((t) => t._id === titleId);
+							const { ...t } = $datas.titles.find((t) => t._id === titleId) || {
+								_id: titleId,
+								name: "???",
+								type: "???"
+							};
+
 							if (t.type.toUpperCase() !== title.group.suffix.toUpperCase())
 								t.type += ` ${title.group.suffix}`;
 
