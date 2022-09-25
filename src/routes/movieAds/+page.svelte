@@ -1,11 +1,10 @@
 <script>
-	import { v4 } from "uuid";
-	import { flip } from "svelte/animate";
-	import { crossfade, scale } from "svelte/transition";
-	import { datas } from "$lib/stores";
-	import MovieAd from "$lib/components/MovieAd.svelte";
+	import { flip } from 'svelte/animate';
+	import { crossfade, scale } from 'svelte/transition';
+	import { datas } from '$lib/stores';
+	import MovieAd from '$lib/components/MovieAd.svelte';
 
-	const dimensions = ["2D", "3D"];
+	const dimensions = ['2D', '3D'];
 
 	const [send, receive] = crossfade({
 		fallback: scale
@@ -36,10 +35,10 @@
 				$datas.movieAds = [
 					...$datas.movieAds,
 					{
-						_id: v4(),
-						film: "",
-						start: last?.start || "",
-						end: last?.end || "",
+						_id: crypto.randomUUID(),
+						film: '',
+						start: last?.start || '',
+						end: last?.end || '',
 						dimension: dimensions[0],
 						room: 1,
 						done: false,

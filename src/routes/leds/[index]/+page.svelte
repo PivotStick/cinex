@@ -1,18 +1,17 @@
 <script>
-	import { page } from "$app/stores";
-	import { intoView } from "$lib/actions/intoView";
-	import Icon from "$lib/components/Icon.svelte";
-	import Main from "$lib/components/Main.svelte";
-	import Search from "$lib/components/Search.svelte";
-	import { datas } from "$lib/stores";
-	import { v4 } from "uuid";
+	import { page } from '$app/stores';
+	import { intoView } from '$lib/actions/intoView';
+	import Icon from '$lib/components/Icon.svelte';
+	import Main from '$lib/components/Main.svelte';
+	import Search from '$lib/components/Search.svelte';
+	import { datas } from '$lib/stores';
 
 	/**
 	 * @type {HTMLInputElement}
 	 */
 	let input;
-	let value = "";
-	let query = "";
+	let value = '';
+	let query = '';
 	let focused = false;
 
 	$: led = $datas.leds[$page.params.index];
@@ -23,7 +22,7 @@
 	on:submit={() => {
 		$datas.leds[$page.params.index].films = [...led.films, value];
 
-		query = "";
+		query = '';
 		input.focus();
 	}}
 >
@@ -54,9 +53,9 @@
 			placeholder="Film"
 			on:notfound={() => {
 				$datas.titles.unshift({
-					_id: v4(),
+					_id: crypto.randomUUID(),
 					name: query,
-					type: "pub"
+					type: 'pub'
 				});
 				$datas.titles = $datas.titles;
 			}}

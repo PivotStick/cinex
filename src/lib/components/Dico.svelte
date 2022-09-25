@@ -1,16 +1,15 @@
 <script>
-	import { datas } from "$lib/stores";
-	import { v4 } from "uuid";
-	import { read, utils } from "xlsx-js-style";
+	import { datas } from '$lib/stores';
+	import { read, utils } from 'xlsx-js-style';
 
-	const KEY = "TITRE FRANCAIS";
+	const KEY = 'TITRE FRANCAIS';
 
 	/**
 	 * @param {File} file
 	 */
 	const load = async (file) => {
 		const buffer = await file.arrayBuffer();
-		if (file.type === "application/json") {
+		if (file.type === 'application/json') {
 			// @ts-ignore
 			console.log(buffer);
 			// $datas = JSON.parse(reader.result);
@@ -28,9 +27,9 @@
 			if ($datas.titles.find((t) => t.name.toUpperCase().trim() === name)) return;
 
 			$datas.titles.push({
-				_id: v4(),
+				_id: crypto.randomUUID(),
 				name,
-				type: "pub"
+				type: 'pub'
 			});
 		});
 
@@ -44,8 +43,13 @@
 		type="file"
 		on:change={async (e) => {
 			const i = e.currentTarget;
-			await load(i.files.item(0));
-			i.value = null;
+			if (i.files !== null) {
+				const file = i.files.item(0);
+				if (file) {
+					await load(file);
+				}
+				i.value = '';
+			}
 		}}
 	/>
 </label>

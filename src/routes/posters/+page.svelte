@@ -1,14 +1,13 @@
 <script>
-	import { intoView } from "$lib/actions/intoView";
+	import { intoView } from '$lib/actions/intoView';
 
-	import Icon from "$lib/components/Icon.svelte";
-	import Main from "$lib/components/Main.svelte";
-	import Search from "$lib/components/Search.svelte";
-	import { datas } from "$lib/stores";
-	import { v4 } from "uuid";
+	import Icon from '$lib/components/Icon.svelte';
+	import Main from '$lib/components/Main.svelte';
+	import Search from '$lib/components/Search.svelte';
+	import { datas } from '$lib/stores';
 
-	const locations = ["int hall", "int coul"];
-	const formats = ["120x160", "plv classique", "plv speciale", "operation speciale"];
+	const locations = ['int hall', 'int coul'];
+	const formats = ['120x160', 'plv classique', 'plv speciale', 'operation speciale'];
 
 	let poster = {
 		titleId: undefined,
@@ -17,7 +16,7 @@
 	};
 
 	let focused = false;
-	let query = "";
+	let query = '';
 	/**
 	 * @type {HTMLInputElement}
 	 */
@@ -32,7 +31,7 @@
 	--rows="auto 1fr auto"
 	on:submit={() => {
 		$datas.posters = [...$datas.posters, { ...poster }];
-		query = "";
+		query = '';
 		input.focus();
 	}}
 >
@@ -63,9 +62,9 @@
 			bind:value={poster.titleId}
 			on:notfound={() => {
 				$datas.titles.unshift({
-					_id: v4(),
+					_id: crypto.randomUUID(),
 					name: query,
-					type: "pub"
+					type: 'pub'
 				});
 				$datas.titles = $datas.titles;
 			}}

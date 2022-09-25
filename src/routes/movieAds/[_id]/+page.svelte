@@ -1,14 +1,13 @@
 <script>
-	import { slide } from "svelte/transition";
-	import { page } from "$app/stores";
-	import { datas } from "$lib/stores";
-	import { intoView } from "$lib/actions/intoView";
+	import { slide } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import { datas } from '$lib/stores';
+	import { intoView } from '$lib/actions/intoView';
 
-	import Icon from "$lib/components/Icon.svelte";
-	import Main from "$lib/components/Main.svelte";
-	import Search from "$lib/components/Search.svelte";
-	import { v4 } from "uuid";
-	import { goto } from "$app/navigation";
+	import Icon from '$lib/components/Icon.svelte';
+	import Main from '$lib/components/Main.svelte';
+	import Search from '$lib/components/Search.svelte';
+	import { goto } from '$app/navigation';
 
 	$: i = $datas.movieAds.findIndex((m) => m._id === $page.params._id);
 	$: ads = $datas.movieAds[i].ads;
@@ -18,7 +17,7 @@
 	 */
 	let input;
 	let focused = false;
-	let query = "";
+	let query = '';
 	/**
 	 * @type {import('$lib/stores').Title}
 	 */
@@ -47,7 +46,7 @@
 			});
 		}
 		$datas.movieAds[i].ads = $datas.movieAds[i].ads;
-		query = "";
+		query = '';
 		title = undefined;
 		input.focus();
 	}}
@@ -57,7 +56,7 @@
 		<button
 			on:click={() => {
 				$datas.movieAds[i].done = true;
-				goto("/movieAds");
+				goto('/movieAds');
 			}}>Finir</button
 		>
 	</h1>
@@ -155,9 +154,9 @@
 			bind:focused
 			on:notfound={() => {
 				$datas.titles.unshift({
-					_id: v4(),
+					_id: crypto.randomUUID(),
 					name: query,
-					type: "pub"
+					type: 'pub'
 				});
 				$datas.titles = $datas.titles;
 			}}
