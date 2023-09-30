@@ -7,7 +7,7 @@
 	import { datas } from "$lib/stores";
 	import { v4 } from "uuid";
 
-	const locations = ["int hall", "int coul"];
+	const locations = ["int hall", "int coul", "ext"];
 	const formats = ["120x160", "plv classique", "plv speciale", "operation speciale"];
 
 	let poster = {
