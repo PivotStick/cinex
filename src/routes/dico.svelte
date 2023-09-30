@@ -1,7 +1,6 @@
 <script>
 	import { v4 } from "uuid";
 	import { datas } from "$lib/stores";
-	import { Regex } from "$lib/utils/Regex";
 
 	import DicoItem from "$lib/components/DicoItem.svelte";
 	import Dico from "$lib/components/Dico.svelte";
@@ -28,8 +27,8 @@
 		input.focus();
 	};
 
-	$: regex = new RegExp(Regex.escape(body.name), "gi");
-	$: sliced = $datas.titles.slice(0, 50);
+	$: filtered = $datas.titles.filter((t) => t.name.toLowerCase().includes(body.name.toLowerCase()));
+	$: sliced = filtered.slice(0, 50);
 </script>
 
 <svelte:head>
@@ -46,9 +45,7 @@
 	</form>
 	<ul>
 		{#each sliced as title (title._id)}
-			{#if title.name.match(regex)}
-				<DicoItem bind:title />
-			{/if}
+			<DicoItem bind:title />
 		{/each}
 	</ul>
 </main>
